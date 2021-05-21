@@ -1,0 +1,17 @@
+# dependencies
+**/node_modules/**
+
+# configurations
+**/webpack*.js
+
+# ignore artifacts
+**/dist/**
+**/lib/**
+**/build/**
+
+# static files
+**/public/**
+
+# for react apps
+**/src/react-app-env.d.js
+**/src/serviceWorker.js
