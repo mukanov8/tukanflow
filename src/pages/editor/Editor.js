@@ -1,11 +1,20 @@
-import React from 'react';
-import { Box, Text, Center, Grid, GridItem, Button } from '@chakra-ui/react';
+import React, { useCallback } from 'react';
+import {
+  Box,
+  Text,
+  Center,
+  Grid,
+  GridItem,
+  Button,
+  Divider,
+  Checkbox,
+  List,
+  ListItem,
+} from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import CKEditor from './CKEditorWrapper';
 
 const Editor = ({ data }) => {
-  console.log('arrow function uspokoisya');
-
   const tasks = [
     {
       isDone: true,
@@ -26,6 +35,38 @@ const Editor = ({ data }) => {
       author: 'john month',
     },
   ];
+  const renderAgenda = useCallback(
+    () => (
+      <Box
+        maxW={240}
+        borderRadius={10}
+        h="auto"
+        border="1px"
+        bg="white"
+        borderColor="gray.200"
+      >
+        <Text fontSize={14} ml={5}>
+          Agenda
+        </Text>
+        <Divider />
+        <List spacing={1} styleType="inherit">
+          {tasks.map(() => (
+            <ListItem
+              key={tasks.id}
+              display="flex"
+              flexDirection="horizontal"
+              height="auto"
+            >
+              <Checkbox>
+                <Text fontSize={14}>Hello World</Text>
+              </Checkbox>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    ),
+    []
+  );
 
   return (
     <Box m={5}>
@@ -54,10 +95,8 @@ const Editor = ({ data }) => {
           Business Requirements
         </Text>
         <Grid templateColumns="repeat(3, 1fr)" templateRows="repeat(2, 1fr)">
-          <GridItem>
-            <Box w="240px" h="240" bg="turquoise" />
-          </GridItem>
-          <CKEditor {...{ data }} />
+          <GridItem>{renderAgenda()}</GridItem>
+          <CKEditor {...{ data }} config={{ height: '100%' }} />
           <GridItem>
             <Box />
           </GridItem>
