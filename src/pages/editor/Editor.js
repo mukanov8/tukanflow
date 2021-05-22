@@ -1,44 +1,7 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
-import styled from 'styled-components';
+import { Box, Text, Center, Grid, GridItem, Button } from '@chakra-ui/react';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import CKEditor from './CKEditorWrapper';
-
-import Agenda from './agenda/Agenda';
-
-const MainContainer = styled(Box)`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0px 30px 0px 30px;
-`;
-
-const HeaderContainer = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  height: 90px;
-`;
-
-const ContentContainer = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const LeftColumn = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  margin-right: 36px;
-`;
-
-const RightColumn = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-`;
 
 const Editor = ({ data }) => {
   console.log('arrow function uspokoisya');
@@ -65,18 +28,42 @@ const Editor = ({ data }) => {
   ];
 
   return (
-    <MainContainer>
-      <HeaderContainer>
-        <h2> Editor </h2>
-      </HeaderContainer>
-      <ContentContainer>
-        <LeftColumn>
-          <Agenda tasks={tasks} />
-        </LeftColumn>
-        <CKEditor {...{ data }} />
-        <RightColumn>sobaka</RightColumn>
-      </ContentContainer>
-    </MainContainer>
+    <Box m={5}>
+      <Button
+        w={270}
+        color="gray.500"
+        ml={15}
+        variant="outline"
+        bg="transparent"
+        borderColor="transparent"
+        _hover={{ bg: 'transparent' }}
+        _focus={{
+          boxShadow: '0',
+        }}
+        _active={{
+          color: '#dddfe2',
+        }}
+      >
+        <ArrowBackIcon as="u" fontSize={14} />
+        <Text as="u" fontSize={14} ml="5px">
+          Develop streak feature in video player
+        </Text>
+      </Button>
+      <Center flexDirection="column">
+        <Text fontSize={30} fontWeight="bold">
+          Business Requirements
+        </Text>
+        <Grid templateColumns="repeat(3, 1fr)" templateRows="repeat(2, 1fr)">
+          <GridItem>
+            <Box w="240px" h="240" bg="turquoise" />
+          </GridItem>
+          <CKEditor {...{ data }} />
+          <GridItem>
+            <Box />
+          </GridItem>
+        </Grid>
+      </Center>
+    </Box>
   );
 };
 
