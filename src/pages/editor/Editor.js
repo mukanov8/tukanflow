@@ -55,11 +55,11 @@ const Editor = ({ data }) => {
   const FloatingBox = useCallback(({ children, title }) => (
     <Box
       as={GridItem}
-      w="240px"
+      minW="260px"
       h="max-content"
       borderRadius="20px"
       bg="white"
-      boxShadow="2px 4px 5px 2px rgba(0, 0, 0, 0.1)"
+      boxShadow="rgba(149, 157, 165, 0.2) 0px 4px 24px"
       mt="20px"
     >
       <Text fontSize="sm" fontWeight="bold" p="12px 22px">
@@ -144,10 +144,11 @@ const Editor = ({ data }) => {
           Develop streak feature in video player
         </Text>
       </Button>
+      <Heading as="h2" size="lg" textAlign="center" mb="24px">
+        Business Requirements
+      </Heading>
+
       <Center flexDirection="column">
-        <Text fontSize="lg" fontWeight="bold" mb="30px">
-          Business Requirements
-        </Text>
         <Flex>
           <Agenda />
           <CKEditor {...{ data }} config={{ height: '100%' }} />

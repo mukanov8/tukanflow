@@ -18,7 +18,26 @@ code {
 
 .chakra-checkbox__control {
   border-radius: 50% !important;
+  /* align-items: flex-start !important; */
 }
+/* .chakra-checkbox {
+  align-items: flex-start !important;
+} */
+
+.ck-content.ck-editor__editable.ck-rounded-corners{
+  height: 600px;
+  border-radius: 0 0 20px 20px !important;
+  border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 24px;
+}
+
+
+.ck-toolbar.ck-toolbar_grouping{
+  border-radius: 20px 20px 0 0 !important;
+  border: none !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 24px;
+}
+
 
 h2.fc-toolbar-chunk {
   font-size: 1.75em;
