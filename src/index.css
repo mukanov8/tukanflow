@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fc-button {
+  margin-left: 20px;
+}
+
+h2.fc-toolbar-chunk {
+  font-size: 1.75em;
+  margin-right: 20px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1.5em;
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.fc-header-toolbar {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
