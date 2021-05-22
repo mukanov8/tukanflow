@@ -11,3 +11,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fc-button {
+  margin-left: 20px;
+}
+
+.chakra-checkbox__control {
+  border-radius: 50% !important;
+  /* align-items: flex-start !important; */
+}
+/* .chakra-checkbox {
+  align-items: flex-start !important;
+} */
+
+.ck-content.ck-editor__editable.ck-rounded-corners{
+  height: 600px;
+  border-radius: 0 0 20px 20px !important;
+  border: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 24px;
+}
+
+
+.ck-toolbar.ck-toolbar_grouping{
+  border-radius: 20px 20px 0 0 !important;
+  border: none !important;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 24px;
+}
+
+.fc-media-screen.fc-direction-ltr.fc-theme-standard{
+  width: 450px;
+}
+
+.fc-header-toolbar.fc-toolbar{
+  width: 450px !important;
+}
+
+.fc-toolbar-chunk {
+  font-size: 12px !important;
+}
+
+h2.fc-toolbar-title{
+  font-size: 16px !important;
+  font-weight: 300;
+}
+
+.fc-view-harness.fc-view-harness-active{
+  font-size: 12px !important;
+}

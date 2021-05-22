@@ -16,7 +16,7 @@
   },
   "rules": {
     "arrow-body-style": [
-      "warn",
+      "off",
       "as-needed",
       { "requireReturnForObjectLiteral": true }
     ],
