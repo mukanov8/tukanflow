@@ -3,7 +3,6 @@ import {
   Box,
   Text,
   Center,
-  Spacer,
   GridItem,
   Button,
   Divider,
@@ -52,15 +51,16 @@ const Editor = ({ data }) => {
     },
   ];
 
-  const FloatingBox = useCallback(({ children, title }) => (
+  const FloatingBox = useCallback(({ children, title, styleProps }) => (
     <Box
       as={GridItem}
-      minW="260px"
+      w="260px"
       h="max-content"
       borderRadius="20px"
       bg="white"
       boxShadow="rgba(149, 157, 165, 0.2) 0px 4px 24px"
       mt="20px"
+      {...styleProps}
     >
       <Text fontSize="sm" fontWeight="bold" p="12px 22px">
         {title}
@@ -71,14 +71,15 @@ const Editor = ({ data }) => {
   ));
   const Agenda = useCallback(
     () => (
-      <FloatingBox title="Agenda">
+      <FloatingBox title="Agenda" styleProps={{ mr: '40px' }}>
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
-            <Box w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
-                <Text fontSize="sm">Hello World</Text>
-              </Checkbox>
-            </Box>
+            <Flex w="100%" key={tasks.id} minh="18px" py="8px">
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
+              <Text fontSize="sm" width="200px" ml="10px">
+                Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
+              </Text>
+            </Flex>
           ))}
         </Stack>
       </FloatingBox>
@@ -86,16 +87,25 @@ const Editor = ({ data }) => {
     []
   );
 
+  const Summary = useCallback(
+    () => (
+      <FloatingBox title="Summary of the previous document">
+        <Text p="14px 10px">Hello World!</Text>
+      </FloatingBox>
+    ),
+    []
+  );
   const Approvals = useCallback(
     () => (
       <FloatingBox title="Approvals">
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
-            <Box w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
-                <Text fontSize="sm">Hello World</Text>
-              </Checkbox>
-            </Box>
+            <Flex w="100%" key={tasks.id} minh="18px" py="8px">
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
+              <Text fontSize="sm" width="200px" ml="10px">
+                Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
+              </Text>
+            </Flex>
           ))}
         </Stack>
       </FloatingBox>
@@ -147,16 +157,20 @@ const Editor = ({ data }) => {
       <Heading as="h2" size="lg" textAlign="center" mb="24px">
         Business Requirements
       </Heading>
-
       <Center flexDirection="column">
         <Flex>
-          <Agenda />
-          <CKEditor {...{ data }} config={{ height: '100%' }} />
           <Box>
-            <Button colorScheme="blue" onClick={onOpen} ml="auto">
-              Add meeting
-            </Button>
-            <Button />
+            <Agenda />
+            <Summary />
+          </Box>
+          <CKEditor {...{ data }} config={{ height: '100%' }} />
+          <Box ml="40px">
+            <Flex justifyContent="space-around">
+              <Button colorScheme="yellow" onClick={onOpen}>
+                Add meeting
+              </Button>
+              <Button colorScheme="green">Approve</Button>
+            </Flex>
             <Approvals />
           </Box>
         </Flex>
