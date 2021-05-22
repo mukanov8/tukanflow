@@ -57,8 +57,6 @@
     ]
   },
   "devDependencies": {
-    "@iconify-icons/ion": "^1.1.2",
-    "@iconify/react": "^1.1.4",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
