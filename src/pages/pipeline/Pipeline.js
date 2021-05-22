@@ -23,11 +23,18 @@ const dummy = [
 const Pipeline = ({ data }) => {
   console.log(data);
   return (
-    <Box w="90%" h="100vh" display="flex" mx="auto" flexDirection="column">
+    <Box
+      w="90%"
+      h="100vh"
+      display="flex"
+      mx="auto"
+      flexDirection="column"
+      mt="28px"
+    >
       <Button
-        w={270}
+        w="200px"
         color="gray.500"
-        ml={15}
+        ml="16px"
         variant="outline"
         bg="transparent"
         borderColor="transparent"
@@ -39,8 +46,8 @@ const Pipeline = ({ data }) => {
           color: '#dddfe2',
         }}
       >
-        <ArrowBackIcon as="u" fontSize={14} />
-        <Text as="u" fontSize={14} ml="5px">
+        <ArrowBackIcon as="u" fontSize="sm" />
+        <Text as="u" fontSize="sm" ml="5px">
           Go to Dashboard
         </Text>
       </Button>
