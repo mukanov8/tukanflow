@@ -38,21 +38,23 @@ code {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 4px 24px;
 }
 
-
-h2.fc-toolbar-chunk {
-  font-size: 1.75em;
-  margin-right: 20px;
+.fc-media-screen.fc-direction-ltr.fc-theme-standard{
+  width: 450px;
 }
 
-.fc .fc-toolbar.fc-header-toolbar {
-  margin-bottom: 1.5em;
-  width: max-content;
-  display: flex;
-  flex-direction: row;
+.fc-header-toolbar.fc-toolbar{
+  width: 450px !important;
 }
 
-.fc-header-toolbar {
-  padding-top: 1em;
-  padding-left: 1em;
-  padding-right: 1em;
+.fc-toolbar-chunk {
+  font-size: 12px !important;
+}
+
+h2.fc-toolbar-title{
+  font-size: 16px !important;
+  font-weight: 300;
+}
+
+.fc-view-harness.fc-view-harness-active{
+  font-size: 12px !important;
 }

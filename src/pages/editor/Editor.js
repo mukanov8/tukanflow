@@ -7,25 +7,14 @@ import {
   Button,
   Divider,
   Checkbox,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Flex,
   useDisclosure,
   Heading,
   Stack,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
 import CKEditor from './CKEditorWrapper';
+import CalendarModal from './CalendarModal';
 
 const Editor = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,10 +64,11 @@ const Editor = ({ data }) => {
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
             <Flex w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
-              <Text fontSize="sm" width="200px" ml="10px">
-                Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
-              </Text>
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
+                <Text fontSize="sm" width="200px">
+                  Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
+                </Text>
+              </Checkbox>
             </Flex>
           ))}
         </Stack>
@@ -95,6 +85,7 @@ const Editor = ({ data }) => {
     ),
     []
   );
+
   const Approvals = useCallback(
     () => (
       <FloatingBox title="Approvals">
@@ -103,7 +94,7 @@ const Editor = ({ data }) => {
             <Flex w="100%" key={tasks.id} minh="18px" py="8px">
               <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
               <Text fontSize="sm" width="200px" ml="10px">
-                Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
+                John Doe
               </Text>
             </Flex>
           ))}
@@ -115,19 +106,19 @@ const Editor = ({ data }) => {
 
   const recipients = [
     {
-      name: 'Alice',
+      name: 'Alice Kim',
       id: '1',
     },
     {
-      name: 'Bobby',
+      name: 'Bobby Bob',
       id: '2',
     },
     {
-      name: 'Claire',
+      name: 'Claire Zuan',
       id: '3',
     },
     {
-      name: 'Dominic',
+      name: 'Dominic Park',
       id: '4',
     },
   ];
@@ -166,7 +157,7 @@ const Editor = ({ data }) => {
           <CKEditor {...{ data }} config={{ height: '100%' }} />
           <Box ml="40px">
             <Flex justifyContent="space-around">
-              <Button colorScheme="yellow" onClick={onOpen}>
+              <Button colorScheme="orange" onClick={onOpen}>
                 Add meeting
               </Button>
               <Button colorScheme="green">Approve</Button>
@@ -175,43 +166,13 @@ const Editor = ({ data }) => {
           </Box>
         </Flex>
       </Center>
-      <Modal isOpen={isOpen} onClose={onClose} size="3xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>New meeting</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody display="flex" flexDirection="row">
-            <FullCalendar
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              height="500px"
-              initialView="timeGridWeek"
-              views={['dayGridMonth', '', 'timeGridDay']}
-              viewClassNames="dayGridMonth"
-              slotLabelFormat={{ hour: 'numeric', minute: '2-digit' }}
-              eventTimeFormat={{
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false,
-              }}
-            />
-            <Flex flexDirection="column" marginLeft="45px" width="200px">
-              {recipients?.map(recipient => (
-                <Heading size="xs" key={recipient?.id} mb="3px">
-                  {recipient?.name}
-                </Heading>
-              ))}
-            </Flex>
-          </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="solid" colorScheme="teal">
-              Send invitation emails
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <CalendarModal
+        isOpen={isOpen}
+        onClose={onClose}
+        recipients={recipients}
+        size="3xl"
+        isCentered
+      />
     </Box>
   );
 };
