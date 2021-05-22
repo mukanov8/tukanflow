@@ -56,21 +56,20 @@ const Editor = ({ data }) => {
     () => (
       <Box
         as={GridItem}
-        w="260px"
+        w="240px"
         h="max-content"
-        mr="34px"
         borderRadius="20px"
         bg="white"
         boxShadow="2px 4px 5px 2px rgba(0, 0, 0, 0.1)"
       >
-        <Text fontSize="md" fontWeight="bold" p="12px 22px">
+        <Text fontSize="sm" fontWeight="bold" p="12px 22px">
           Agenda
         </Text>
         <Divider />
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
             <Box w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox size="md" key={tasks.id} colorScheme="green">
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
                 <Text fontSize="sm">Hello World</Text>
               </Checkbox>
             </Box>
@@ -126,12 +125,21 @@ const Editor = ({ data }) => {
         <Text fontSize="lg" fontWeight="bold">
           Business Requirements
         </Text>
-        <Grid templateColumns="repeat(3, 1fr)" templateRows="repeat(1, 1fr)">
-          {renderAgenda()}
-          <CKEditor {...{ data }} config={{ height: '100%' }} as={GridItem} />
-          <Button as={GridItem} colorScheme="blue" onClick={onOpen} ml="auto">
-            Add meeting
-          </Button>
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          templateRows="repeat(1, 1fr)"
+          columnGap={3}
+        >
+          <GridItem>{renderAgenda()}</GridItem>
+          <GridItem>
+            <CKEditor {...{ data }} config={{ height: '100%' }} as={GridItem} />
+          </GridItem>
+          <GridItem>
+            <Button as={GridItem} colorScheme="blue" onClick={onOpen} ml="auto">
+              Add meeting
+            </Button>
+            {renderAgenda()}
+          </GridItem>
         </Grid>
       </Center>
       <Modal isOpen={isOpen} onClose={onClose} size="3xl">
