@@ -39,26 +39,27 @@ const Editor = ({ data }) => {
     () => (
       <Box
         maxW={240}
-        borderRadius={10}
+        borderRadius={20}
         h="auto"
         border="1px"
         bg="white"
         borderColor="gray.200"
       >
-        <Text fontSize={14} ml={5}>
+        <Text fontSize={14} ml={7}>
           Agenda
         </Text>
         <Divider />
-        <List spacing={1} styleType="inherit">
+        <List spacing={1} pl={5}>
           {tasks.map(() => (
             <ListItem
-              h="32px"
+              h="20px"
+              w="170px"
               key={tasks.id}
               display="flex"
               flexDirection="horizontal"
             >
-              <Checkbox>
-                <Text fontSize={14}>Hello World</Text>
+              <Checkbox size="sm">
+                <Text fontSize={12}>Hello Worldvfsdvfdkmdfkmvkldmvlmvfff</Text>
               </Checkbox>
             </ListItem>
           ))}
