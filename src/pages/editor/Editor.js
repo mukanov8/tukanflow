@@ -8,8 +8,6 @@ import {
   Button,
   Divider,
   Checkbox,
-  List,
-  ListItem,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,6 +18,8 @@ import {
   Flex,
   useDisclosure,
   Heading,
+  Stack,
+  Container,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 
@@ -56,32 +56,26 @@ const Editor = ({ data }) => {
   const renderAgenda = useCallback(
     () => (
       <Box
-        maxW={240}
+        w={260}
         borderRadius={20}
-        h="auto"
         border="1px"
         bg="white"
         borderColor="gray.200"
+        pb={3}
       >
         <Text fontSize={14} ml={7}>
           Agenda
         </Text>
         <Divider />
-        <List spacing={1} pl={5}>
+        <Stack spacing={-5} pl={3}>
           {tasks.map(() => (
-            <ListItem
-              h="20px"
-              w="170px"
-              key={tasks.id}
-              display="flex"
-              flexDirection="horizontal"
-            >
-              <Checkbox size="sm">
+            <Box w="170px" key={tasks.id} minh="10px">
+              <Checkbox size="sm" key={tasks.id}>
                 <Text fontSize={12}>Hello Worldvfsdvfdkmdfkmvkldmvlmvfff</Text>
               </Checkbox>
-            </ListItem>
+            </Box>
           ))}
-        </List>
+        </Stack>
       </Box>
     ),
     []
