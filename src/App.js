@@ -10,7 +10,7 @@ import EditorContainer from './pages/editor/Editor.container';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} resetCSS={false}>
       <BrowserRouter>
         <Route exact path="/" component={PublicPage} />
         <Route exact path="/dashboard" component={DashboardContainer} />

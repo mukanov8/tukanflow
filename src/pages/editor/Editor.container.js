@@ -2,8 +2,8 @@ import React from 'react';
 import Editor from './Editor';
 
 const EditorContainer = () => {
-  const data = '123';
-  console.log(data);
+  const data = '';
+
   return <Editor data={data} />;
 };
 
