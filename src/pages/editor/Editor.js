@@ -3,7 +3,7 @@ import {
   Box,
   Text,
   Center,
-  Grid,
+  Spacer,
   GridItem,
   Button,
   Divider,
@@ -52,20 +52,26 @@ const Editor = ({ data }) => {
     },
   ];
 
-  const renderAgenda = useCallback(
+  const FloatingBox = useCallback(({ children, title }) => (
+    <Box
+      as={GridItem}
+      w="240px"
+      h="max-content"
+      borderRadius="20px"
+      bg="white"
+      boxShadow="2px 4px 5px 2px rgba(0, 0, 0, 0.1)"
+      mt="20px"
+    >
+      <Text fontSize="sm" fontWeight="bold" p="12px 22px">
+        {title}
+      </Text>
+      <Divider />
+      {children}
+    </Box>
+  ));
+  const Agenda = useCallback(
     () => (
-      <Box
-        as={GridItem}
-        w="240px"
-        h="max-content"
-        borderRadius="20px"
-        bg="white"
-        boxShadow="2px 4px 5px 2px rgba(0, 0, 0, 0.1)"
-      >
-        <Text fontSize="sm" fontWeight="bold" p="12px 22px">
-          Agenda
-        </Text>
-        <Divider />
+      <FloatingBox title="Agenda">
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
             <Box w="100%" key={tasks.id} minh="18px" py="8px">
@@ -75,7 +81,24 @@ const Editor = ({ data }) => {
             </Box>
           ))}
         </Stack>
-      </Box>
+      </FloatingBox>
+    ),
+    []
+  );
+
+  const Approvals = useCallback(
+    () => (
+      <FloatingBox title="Approvals">
+        <Stack spacing="-5px" p="14px 10px">
+          {tasks.map(() => (
+            <Box w="100%" key={tasks.id} minh="18px" py="8px">
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
+                <Text fontSize="sm">Hello World</Text>
+              </Checkbox>
+            </Box>
+          ))}
+        </Stack>
+      </FloatingBox>
     ),
     []
   );
@@ -125,22 +148,17 @@ const Editor = ({ data }) => {
         <Text fontSize="lg" fontWeight="bold" mb="30px">
           Business Requirements
         </Text>
-        <Grid
-          templateColumns="repeat(3, 1fr)"
-          templateRows="repeat(1, 1fr)"
-          columnGap={3}
-        >
-          <GridItem>{renderAgenda()}</GridItem>
-          <GridItem>
-            <CKEditor {...{ data }} config={{ height: '100%' }} as={GridItem} />
-          </GridItem>
-          <GridItem>
-            <Button as={GridItem} colorScheme="blue" onClick={onOpen} ml="auto">
+        <Flex>
+          <Agenda />
+          <CKEditor {...{ data }} config={{ height: '100%' }} />
+          <Box>
+            <Button colorScheme="blue" onClick={onOpen} ml="auto">
               Add meeting
             </Button>
-            {renderAgenda()}
-          </GridItem>
-        </Grid>
+            <Button />
+            <Approvals />
+          </Box>
+        </Flex>
       </Center>
       <Modal isOpen={isOpen} onClose={onClose} size="3xl">
         <ModalOverlay />
