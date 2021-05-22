@@ -122,7 +122,7 @@ const Editor = ({ data }) => {
         </Text>
       </Button>
       <Center flexDirection="column">
-        <Text fontSize="lg" fontWeight="bold">
+        <Text fontSize="lg" fontWeight="bold" mb="30px">
           Business Requirements
         </Text>
         <Grid
