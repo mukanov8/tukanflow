@@ -10,11 +10,29 @@ import {
   Checkbox,
   List,
   ListItem,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Flex,
+  useDisclosure,
+  Heading,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import CKEditor from './CKEditorWrapper';
 
 const Editor = ({ data }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log('arrow function uspokoisya');
+
   const tasks = [
     {
       isDone: true,
@@ -69,6 +87,25 @@ const Editor = ({ data }) => {
     []
   );
 
+  const recipients = [
+    {
+      name: 'Alice',
+      id: '1',
+    },
+    {
+      name: 'Bobby',
+      id: '2',
+    },
+    {
+      name: 'Claire',
+      id: '3',
+    },
+    {
+      name: 'Dominic',
+      id: '4',
+    },
+  ];
+
   return (
     <Box m={5}>
       <Button
@@ -99,10 +136,51 @@ const Editor = ({ data }) => {
           <GridItem>{renderAgenda()}</GridItem>
           <CKEditor {...{ data }} config={{ height: '100%' }} />
           <GridItem>
-            <Box />
+            <Box>
+              <Button colorScheme="blue" onClick={onOpen}>
+                Add meeting
+              </Button>
+            </Box>
           </GridItem>
         </Grid>
       </Center>
+      <Modal isOpen={isOpen} onClose={onClose} size="3xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>New meeting</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody display="flex" flexDirection="row">
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              height="500px"
+              initialView="timeGridWeek"
+              views={['dayGridMonth', '', 'timeGridDay']}
+              viewClassNames="dayGridMonth"
+              slotLabelFormat={{ hour: 'numeric', minute: '2-digit' }}
+              eventTimeFormat={{
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+              }}
+            />
+            <Flex flexDirection="column" marginLeft="45px" width="200px">
+              {recipients?.map(recipient => (
+                <Heading size="xs" key={recipient?.id} mb="3px">
+                  {recipient?.name}
+                </Heading>
+              ))}
+            </Flex>
+          </ModalBody>
+          <ModalFooter>
+            <Button mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="solid" colorScheme="teal">
+              Send invitation emails
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
