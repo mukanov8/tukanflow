@@ -9,21 +9,29 @@
   "plugins": ["prettier", "react"],
   "parserOptions": {
     "ecmaFeatures": {
-        "jsx": true
+      "jsx": true
     },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
   "rules": {
+    "arrow-body-style": [
+      "warn",
+      "as-needed",
+      { "requireReturnForObjectLiteral": true }
+    ],
     "no-underscore-dangle": [
       1,
       {
         "allow": ["_id"]
       }
     ],
-    "react/jsx-filename-extension": [1, {
-      "extensions": [".js", ".jsx"]
-    }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
     "consistent-return": "off",
     "import/no-extraneous-dependencies": [
       "error",
