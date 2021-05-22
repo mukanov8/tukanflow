@@ -16,6 +16,10 @@ code {
   margin-left: 20px;
 }
 
+.chakra-checkbox__control {
+  border-radius: 50% !important;
+}
+
 h2.fc-toolbar-chunk {
   font-size: 1.75em;
   margin-right: 20px;

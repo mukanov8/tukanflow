@@ -27,8 +27,6 @@ const theme = extendTheme({
   colors: {
     transparent: 'transparent',
     darkModal: 'rgba(255, 255, 255, 0.03)',
-    orange: '#F6AD55',
-    green: '#38A169',
     // your custom colors go here:
   },
   // you can override or add additional style props to components like below

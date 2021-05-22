@@ -19,7 +19,6 @@ import {
   useDisclosure,
   Heading,
   Stack,
-  Container,
 } from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 
@@ -31,7 +30,6 @@ import CKEditor from './CKEditorWrapper';
 
 const Editor = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log('arrow function uspokoisya');
 
   const tasks = [
     {
@@ -53,25 +51,27 @@ const Editor = ({ data }) => {
       author: 'john month',
     },
   ];
+
   const renderAgenda = useCallback(
     () => (
       <Box
-        w={260}
-        borderRadius={20}
-        border="1px"
+        as={GridItem}
+        w="260px"
+        h="max-content"
+        mr="34px"
+        borderRadius="20px"
         bg="white"
-        borderColor="gray.200"
-        pb={3}
+        boxShadow="2px 4px 5px 2px rgba(0, 0, 0, 0.1)"
       >
-        <Text fontSize={14} ml={7}>
+        <Text fontSize="md" fontWeight="bold" p="12px 22px">
           Agenda
         </Text>
         <Divider />
-        <Stack spacing={-5} pl={3}>
+        <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
-            <Box w="170px" key={tasks.id} minh="10px">
-              <Checkbox size="sm" key={tasks.id}>
-                <Text fontSize={12}>Hello Worldvfsdvfdkmdfkmvkldmvlmvfff</Text>
+            <Box w="100%" key={tasks.id} minh="18px" py="8px">
+              <Checkbox size="md" key={tasks.id} colorScheme="green">
+                <Text fontSize="sm">Hello World</Text>
               </Checkbox>
             </Box>
           ))}
@@ -101,11 +101,11 @@ const Editor = ({ data }) => {
   ];
 
   return (
-    <Box m={5}>
+    <Box m="28px" h="max-content">
       <Button
-        w={270}
+        w="270px"
         color="gray.500"
-        ml={15}
+        ml="16px"
         variant="outline"
         bg="transparent"
         borderColor="transparent"
@@ -117,25 +117,21 @@ const Editor = ({ data }) => {
           color: '#dddfe2',
         }}
       >
-        <ArrowBackIcon as="u" fontSize={14} />
-        <Text as="u" fontSize={14} ml="5px">
+        <ArrowBackIcon as="u" fontSize="sm" />
+        <Text as="u" fontSize="sm" ml="5px">
           Develop streak feature in video player
         </Text>
       </Button>
       <Center flexDirection="column">
-        <Text fontSize={30} fontWeight="bold">
+        <Text fontSize="lg" fontWeight="bold">
           Business Requirements
         </Text>
-        <Grid templateColumns="repeat(3, 1fr)" templateRows="repeat(2, 1fr)">
-          <GridItem>{renderAgenda()}</GridItem>
-          <CKEditor {...{ data }} config={{ height: '100%' }} />
-          <GridItem>
-            <Box>
-              <Button colorScheme="blue" onClick={onOpen}>
-                Add meeting
-              </Button>
-            </Box>
-          </GridItem>
+        <Grid templateColumns="repeat(3, 1fr)" templateRows="repeat(1, 1fr)">
+          {renderAgenda()}
+          <CKEditor {...{ data }} config={{ height: '100%' }} as={GridItem} />
+          <Button as={GridItem} colorScheme="blue" onClick={onOpen} ml="auto">
+            Add meeting
+          </Button>
         </Grid>
       </Center>
       <Modal isOpen={isOpen} onClose={onClose} size="3xl">
