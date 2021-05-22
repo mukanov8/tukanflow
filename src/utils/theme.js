@@ -2,25 +2,27 @@ import { extendTheme } from '@chakra-ui/react';
 import { mode } from '@chakra-ui/theme-tools';
 
 const theme = extendTheme({
-  initialColorMode: 'dark',
-  useSystemColorMode: true,
+  initialColorMode: 'light',
+  useSystemColorMode: false,
   styles: {
-    global: props => ({
-      body: {
-        color: mode('gray.800', 'whiteAlpha.800')(props),
-        bg: mode('gray.50', '#121212')(props), // MUI black #121212 // alt #0d1117
-      },
-      // ignore this
-      // a: {
-      //   color: mode('purple.600', 'purple.300')(props),
-      //   fontWeight: 'bold',
-      //   _hover: {
-      //     color: mode('gray.700', 'whiteAlpha.800')(props),
-      //     color: mode('purple.600', 'purple.300')(props),
-      //     textDecoration: 'underline',
-      //   },
-      // },
-    }),
+    global: props => {
+      return {
+        body: {
+          color: mode('gray.800', 'whiteAlpha.800')(props),
+          bg: mode('gray.50', '#121212')(props),
+        },
+        // ignore this
+        // a: {
+        //   color: mode('purple.600', 'purple.300')(props),
+        //   fontWeight: 'bold',
+        //   _hover: {
+        //     color: mode('gray.700', 'whiteAlpha.800')(props),
+        //     color: mode('purple.600', 'purple.300')(props),
+        //     textDecoration: 'underline',
+        //   },
+        // },
+      };
+    },
   },
   colors: {
     transparent: 'transparent',
