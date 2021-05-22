@@ -1,10 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { Spinner } from '@chakra-ui/react';
+
 import Pipeline from './Pipeline';
 
-const PipelineContainer = () => {
-  const data = '123';
-  console.log(data);
-  return <Pipeline data={data} />;
+const GET_FEATURE = gql`
+  query feature($id: ID!) {
+    feature(id: $id) {
+      id
+      name
+      stages {
+        id
+        name
+        thumbnail
+        title
+        progress
+        text
+        approvals {
+          user {
+            id
+            username
+          }
+        }
+        goals {
+          text
+          status
+          author {
+            id
+            username
+          }
+        }
+        summary
+      }
+    }
+  }
+`;
+
+const PipelineContainer = props => {
+  const featureId = props?.match?.params?.id;
+  const [feature, setFeature] = useState(null);
+  const { data, error, loading } = useQuery(GET_FEATURE, {
+    variables: {
+      id: featureId,
+    },
+  });
+
+  useEffect(() => {
+    if (data && data.feature) {
+      console.log(data);
+      setFeature(data.feature);
+    }
+  }, []);
+
+  if (!feature) {
+    return <Spinner size="xl" />;
+  }
+
+  return <Pipeline feature={feature} />;
 };
 
 export default PipelineContainer;

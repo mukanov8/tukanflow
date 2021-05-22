@@ -9,20 +9,20 @@ const SMALL_ITEM_SIZE = 117;
 const BIG_ITEM_SIZE = 150;
 
 const Item = ({ index = 1, itemData, ...props }) => {
-  const isActive = itemData.status < 100 && itemData.status > 0;
-  const isPending = itemData.status === 0;
+  const isActive = itemData.progress < 100 && itemData.progress > 0;
+  const isPending = itemData.progress === 0;
 
   const size = isActive ? `${BIG_ITEM_SIZE}px` : `${SMALL_ITEM_SIZE}px`;
 
   const statusMsg = useMemo(() => {
-    if (itemData.status === 0) {
+    if (itemData.progress === 0) {
       return (
         <Text fontSize="sm" w={size} color={theme.colors.orange[300]}>
           Not Started
         </Text>
       );
     }
-    if (itemData.status === 100) {
+    if (itemData.progress === 100) {
       return (
         <Text fontSize="sm" w={size} color={theme.colors.red[500]}>
           Completed
@@ -69,12 +69,12 @@ const Item = ({ index = 1, itemData, ...props }) => {
         )}
         {isActive && (
           <CircularProgress
-            value={itemData.status}
+            value={itemData.progress}
             size="54px"
             color={theme.colors.green[600]}
           >
             <CircularProgressLabel color="white">
-              {itemData.status}%
+              {itemData.progress}%
             </CircularProgressLabel>
           </CircularProgress>
         )}
