@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Center, Wrap, Flex, Circle } from '@chakra-ui/react';
+import { Box, Text, Center, Flex, Circle, Grid } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
 const Dashboard = ({ data }) => {
@@ -39,31 +39,59 @@ const Dashboard = ({ data }) => {
     ));
   return (
     <Center>
-      <Box w={1000} mt={50}>
-        <Text fontSize={36} fontWeight="bold" mb={50} pl={10}>
+      <Box my={50} justify="center">
+        <Text
+          fontSize={36}
+          fontWeight="bold"
+          mb={50}
+          pl="8px"
+          textAlign={['center', 'left']}
+        >
           Dashboard
         </Text>
-        <Wrap spacing="50px" shouldWrapChildren={true} justify="center">
+        <Grid
+          templateColumns={{
+            base: 'repeat(1, 0fr)',
+            md: 'repeat(2, 0fr)',
+            lg: 'repeat(3, 0fr)',
+          }}
+          gap="20px"
+        >
           {wrapItems()}
-        </Wrap>
-        <Flex justify="flex-end">
-          <Circle
-            as="button"
-            bgGradient="linear(to-r, #6C7789, #4A5568)"
-            w="80px"
-            h="80px"
-            m={30}
-            boxShadow="lg"
-            _hover={{ bg: 'gray.600', borderRadius: 40 }}
-            _active={{
-              bg: '#dddfe2',
-              transform: 'scale(0.98)',
-              borderColor: '#bec3c9',
-            }}
-          >
-            <AddIcon color="white" fontSize={20} />
-          </Circle>
-        </Flex>
+        </Grid>
+        <Circle
+          position="fixed"
+          right={{
+            base: '0',
+            md: '12px',
+            lg: '60px',
+          }}
+          bottom={{
+            base: '0',
+            md: '12px',
+            lg: '60px',
+          }}
+          as="button"
+          bgGradient="linear(to-r, #6C7789, #4A5568)"
+          w={{
+            base: '52px',
+            lg: '80px',
+          }}
+          h={{
+            base: '52px',
+            lg: '80px',
+          }}
+          m={30}
+          boxShadow="lg"
+          _hover={{ bg: 'gray.600' }}
+          _active={{
+            bg: '#dddfe2',
+            transform: 'scale(0.98)',
+            borderColor: '#bec3c9',
+          }}
+        >
+          <AddIcon color="white" fontSize={20} />
+        </Circle>
       </Box>
     </Center>
   );
