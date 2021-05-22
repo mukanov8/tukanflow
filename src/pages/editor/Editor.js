@@ -42,7 +42,6 @@ const Editor = ({ data }) => {
 
   const FloatingBox = useCallback(({ children, title, styleProps }) => (
     <Box
-      as={GridItem}
       w="260px"
       h="max-content"
       borderRadius="20px"
@@ -80,7 +79,9 @@ const Editor = ({ data }) => {
   const Summary = useCallback(
     () => (
       <FloatingBox title="Summary of the previous document">
-        <Text p="14px 10px">Hello World!</Text>
+        <Text p="14px 19px" fontSize="12px">
+          Hello World!
+        </Text>
       </FloatingBox>
     ),
     []
@@ -156,8 +157,8 @@ const Editor = ({ data }) => {
           </Box>
           <CKEditor {...{ data }} config={{ height: '100%' }} />
           <Box ml="40px">
-            <Flex justifyContent="space-around">
-              <Button colorScheme="orange" onClick={onOpen}>
+            <Flex justifyContent="space-around" mt="20px">
+              <Button colorScheme="yellow" onClick={onOpen}>
                 Add meeting
               </Button>
               <Button colorScheme="green">Approve</Button>
