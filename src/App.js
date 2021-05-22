@@ -9,8 +9,9 @@ import PipelineContainer from './pages/pipeline/Pipeline.container';
 import EditorContainer from './pages/editor/Editor.container';
 
 function App() {
+  // resetCSS={false}
   return (
-    <ChakraProvider theme={theme} resetCSS={false}>
+    <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Route exact path="/" component={PublicPage} />
         <Route exact path="/dashboard" component={DashboardContainer} />
