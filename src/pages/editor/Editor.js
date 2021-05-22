@@ -63,11 +63,15 @@ const Editor = ({ data }) => {
         <Stack spacing="-5px" p="14px 10px">
           {tasks.map(() => (
             <Flex w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green">
-                <Text fontSize="sm" width="200px">
+              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
+              <Flex flexDirection="column" ml="5px">
+                <Text fontSize="14px" width="200px">
                   Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
                 </Text>
-              </Checkbox>
+                <Text fontSize="11px" color="gray.400">
+                  Author: Jane Doe
+                </Text>
+              </Flex>
             </Flex>
           ))}
         </Stack>
