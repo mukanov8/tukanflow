@@ -52,10 +52,10 @@ const Editor = ({ data }) => {
         <List spacing={1} styleType="inherit">
           {tasks.map(() => (
             <ListItem
+              h="32px"
               key={tasks.id}
               display="flex"
               flexDirection="horizontal"
-              height="auto"
             >
               <Checkbox>
                 <Text fontSize={14}>Hello World</Text>
