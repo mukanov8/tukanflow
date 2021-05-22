@@ -3,7 +3,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import React from 'react';
 import theme from '../../utils/theme';
 import Item from './Item';
-import ArrowRight from '../../assets/ArrowRight';
+import ArrowRight from '../../icons/ArrowRight';
 
 const dummy = [
   {
