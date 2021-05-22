@@ -47,10 +47,9 @@ const PipelineContainer = props => {
 
   useEffect(() => {
     if (data && data.feature) {
-      console.log(data);
       setFeature(data.feature);
     }
-  }, []);
+  }, [data, error, loading]);
 
   if (!feature) {
     return <Spinner size="xl" />;

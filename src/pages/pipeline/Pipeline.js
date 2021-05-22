@@ -97,7 +97,7 @@ const Pipeline = ({ feature }) => {
                 itemData={item}
                 mx="36px"
               />
-              {item.progress !== 0 && feature?.stages?.length > 1 && (
+              {item.progress !== 0 && i !== feature?.stages?.length - 1 && (
                 <Box mb="32px">
                   <ArrowRight
                     color={
