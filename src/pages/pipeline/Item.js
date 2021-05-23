@@ -11,6 +11,7 @@ const BIG_ITEM_SIZE = 150;
 const Item = ({ index = 1, itemData, ...props }) => {
   const isActive = itemData.progress < 100 && itemData.progress > 0;
   const isPending = itemData.progress === 0;
+  const isCompleted = itemData.progress === 100;
 
   const size = isActive ? `${BIG_ITEM_SIZE}px` : `${SMALL_ITEM_SIZE}px`;
 
@@ -34,7 +35,7 @@ const Item = ({ index = 1, itemData, ...props }) => {
         In progress...
       </Text>
     );
-  }, [itemData.status]);
+  }, [itemData.progress]);
 
   return (
     <Box
@@ -60,7 +61,7 @@ const Item = ({ index = 1, itemData, ...props }) => {
         borderRadius="50%"
         _hover={{ transform: 'scale(1.05)' }}
       >
-        {!isPending && !isActive && (
+        {isCompleted && (
           <Icon
             icon={checkmarkDoneSharp}
             width="48px"
