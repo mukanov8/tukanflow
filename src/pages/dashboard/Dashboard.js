@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Text, Center, Flex, Circle, Grid } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
-const Dashboard = ({ data }) => {
+const Dashboard = ({ features }) => {
   const dummy = [
     { id: '123' },
     { id: '345' },
@@ -11,7 +12,7 @@ const Dashboard = ({ data }) => {
     { id: '987' },
   ];
   const wrapItems = () =>
-    dummy.map(item => (
+    features.map(item => (
       <Flex
         as="button"
         direction="column"
@@ -25,16 +26,18 @@ const Dashboard = ({ data }) => {
         key={item.id}
         p={2}
       >
-        <Box
-          w="240px"
-          h="160px"
-          border="1px"
-          borderColor="gray.200"
-          borderRadius={20}
-          boxShadow="inner"
-          mb="3"
-        />
-        <Text fontSize={16}>Hello</Text>
+        <Link to={`/pipeline/${item.id}`}>
+          <Box
+            w="240px"
+            h="160px"
+            border="1px"
+            borderColor="gray.200"
+            borderRadius={20}
+            boxShadow="inner"
+            mb="3"
+          />
+          <Text fontSize={16}>{item?.name}</Text>
+        </Link>
       </Flex>
     ));
   return (

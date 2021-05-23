@@ -37,17 +37,26 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               hour12: false,
             }}
           />
-          <Flex flexDirection="column" marginLeft="45px" width="200px">
+          <Flex flexDirection="column" marginLeft="45px" width="250px">
             {recipients?.map(recipient => (
-              <Text size="lg" fontWeight="bold" key={recipient?.id} mb="3px">
-                {recipient?.name}
-              </Text>
+              <>
+                <Text size="lg" fontWeight="bold" key={recipient?.id}>
+                  {recipient?.name}
+                </Text>
+                <Text
+                  fontSize="xs"
+                  key={recipient?.id + recipient?.email}
+                  mb="3px"
+                >
+                  {recipient?.email}
+                </Text>
+              </>
             ))}
             <Button
               variant="link"
               size="sm"
               w="120px"
-              mt="3px"
+              mt="6px"
               fontWeight="450"
             >
               add new assignee
