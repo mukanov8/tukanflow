@@ -8,6 +8,7 @@ const GET_FEATURES = gql`
     features {
       id
       name
+      thumbnailURL
     }
   }
 `;
@@ -21,7 +22,6 @@ const DashboardContainer = () => {
       setFeatures(data.features);
     }
   }, [data, error, loading]);
-
   if (!features) {
     return (
       <Center h="100vh" w="100vw">

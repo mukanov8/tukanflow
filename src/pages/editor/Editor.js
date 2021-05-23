@@ -11,11 +11,12 @@ import {
   Heading,
   Stack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import CKEditor from './CKEditorWrapper';
 import CalendarModal from './CalendarModal';
 
-const Editor = ({ stage }) => {
+const Editor = ({ stage, parentId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const tasks = [
@@ -143,26 +144,28 @@ const Editor = ({ stage }) => {
 
   return (
     <Box m="28px" h="max-content">
-      <Button
-        w="270px"
-        color="gray.500"
-        ml="16px"
-        variant="outline"
-        bg="transparent"
-        borderColor="transparent"
-        _hover={{ bg: 'transparent' }}
-        _focus={{
-          boxShadow: '0',
-        }}
-        _active={{
-          color: '#dddfe2',
-        }}
-      >
-        <ArrowBackIcon as="u" fontSize="sm" />
-        <Text as="u" fontSize="sm" ml="5px">
-          {stage?.name}
-        </Text>
-      </Button>
+      <Link to={`/pipeline/${parentId}`}>
+        <Button
+          w="270px"
+          color="gray.500"
+          ml="16px"
+          variant="outline"
+          bg="transparent"
+          borderColor="transparent"
+          _hover={{ bg: 'transparent' }}
+          _focus={{
+            boxShadow: '0',
+          }}
+          _active={{
+            color: '#dddfe2',
+          }}
+        >
+          <ArrowBackIcon as="u" fontSize="sm" />
+          <Text as="u" fontSize="sm" ml="5px">
+            {stage?.name}
+          </Text>
+        </Button>
+      </Link>
       <Heading as="h2" size="lg" textAlign="center" mb="24px">
         {stage?.title}
       </Heading>

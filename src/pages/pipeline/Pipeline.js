@@ -80,6 +80,7 @@ const Pipeline = ({ feature }) => {
                 index={i + 1}
                 key={i.toString()}
                 itemData={item}
+                parentId={feature?.id}
                 mx="36px"
               />
               {item.progress !== 0 && i !== feature?.stages?.length - 1 && (

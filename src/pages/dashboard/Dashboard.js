@@ -35,6 +35,10 @@ const Dashboard = ({ features }) => {
             borderRadius={20}
             boxShadow="inner"
             mb="3"
+            bgImage={`url('${item?.thumbnailURL}')`}
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            bgSize="cover"
           />
           <Text fontSize={16}>{item?.name}</Text>
         </Link>
