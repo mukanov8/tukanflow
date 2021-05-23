@@ -19,6 +19,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import moment from 'moment';
 import theme from '../../utils/theme';
 
 // const dates = [
@@ -97,18 +98,25 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
 
   const [emails, setEmails] = React.useState([]);
 
-  const onClick = useCallback(() => {
-    // recipients.map(recipient => setEmails([...emails, recipient?.user?.email]));
-    console.log(selectedTime, 'hey');
-    // console.log(emails, 'set');
-  }, []);
+  const isEqual = (time1, time2) => {
+    console.log(time1, time2);
+    const startTime = moment(time1).add(-2, 'minutes');
+    const endTime = moment(time1).add(2, 'minutes');
+    if (startTime < moment(time2) && moment(time2) < endTime) {
+      console.log('equal');
+      return true;
+    }
+    console.log('not equal');
+
+    return false;
+  };
 
   useEffect(() => {
     if (isOpen) {
       const emailsList = [];
       recipients.map(recipient => emailsList.push(recipient?.user?.email));
       setEmails([...emails, emailsList]);
-
+      console.log('delaem zapros nahui');
       axios({
         method: 'POST',
         url: `${PROD_URL}/findmeeting`,
@@ -146,7 +154,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
           end,
         },
       }).then(response => {
-        console.log('response', response);
+        console.log('response from send email', response);
       });
     });
   };
@@ -161,7 +169,17 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{meetingName}</ModalHeader>
+        <ModalHeader>
+          <Input
+            value={meetingName}
+            width="300px"
+            minWidth="200px"
+            placeholder="New meeting"
+            variant="flushed"
+            fontWeight="bold"
+            onChange={e => setMeetingName(e.target.value)}
+          />
+        </ModalHeader>
         <ModalCloseButton autoFocus={false} />
         <ModalBody display="flex" flexDirection="row" p="28px">
           <Box h="500px" w="400px">
@@ -179,14 +197,30 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
                     cursor="pointer"
                     onClick={() => {
                       console.log(date, 'date');
-                      setSelectedTime(selectedTime => date);
+                      setSelectedTime(date);
                     }}
                     _hover={{ bg: 'gray.100' }}
                     borderRadius="20px"
                     size="sm"
+                    bg={
+                      isEqual(
+                        date?.start?.dateTime,
+                        selectedTime?.start?.dateTime
+                      ) && 'gray.300'
+                    }
                   >
-                    <Td p="0px"> {date?.start?.dateTime} </Td>
-                    <Td p="0px"> {date?.end?.dateTime} </Td>
+                    <Td p="0px">
+                      {' '}
+                      {moment(date?.start?.dateTime).format(
+                        'Do MMMM, YYYY, HH: mm'
+                      )}{' '}
+                    </Td>
+                    <Td p="0px">
+                      {' '}
+                      {moment(date?.end?.dateTime).format(
+                        'Do MMMM, YYYY, HH: mm'
+                      )}{' '}
+                    </Td>
                   </Tr>
                 ))}
               </Tbody>
@@ -255,8 +289,14 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               colorScheme="green"
               mt="auto"
               onClick={() => {
-                onClick();
+                console.log('selected time', selectedTime);
                 console.log('sent invitation emails');
+                sendInvitation({
+                  attendees: emails,
+                  subject: meetingName,
+                  start: selectedTime?.start,
+                  end: selectedTime?.end,
+                });
               }}
             >
               Send invitation emails
