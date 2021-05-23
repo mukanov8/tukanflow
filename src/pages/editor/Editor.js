@@ -112,20 +112,15 @@ const Editor = ({ data }) => {
   const recipients = [
     {
       name: 'Alice Kim',
+      email: 'anuar@tukangambit.onmicrosoft.com',
       id: '1',
     },
     {
-      name: 'Bobby Bob',
+      name: 'Dominic Park',
+      email: 'kunduzb17@tukangambit.onmicrosoft.com',
       id: '2',
     },
-    {
-      name: 'Claire Zuan',
-      id: '3',
-    },
-    {
-      name: 'Dominic Park',
-      id: '4',
-    },
+    { name: 'John Doe', email: 'ayan@tukangambit.onmicrosoft.com', id: '3' },
   ];
 
   return (
