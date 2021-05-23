@@ -6,21 +6,6 @@ import theme from '../../utils/theme';
 import Item from './Item';
 import ArrowRight from '../../icons/ArrowRight';
 
-const dummy = [
-  {
-    title: 'Pitch Deck',
-    status: 100,
-  },
-  {
-    title: 'Business Requirements',
-    status: 50,
-  },
-  {
-    title: 'Software Requirements',
-    status: 0,
-  },
-];
-
 const Pipeline = ({ feature }) => {
   return (
     <Box

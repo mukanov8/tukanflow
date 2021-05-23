@@ -19,11 +19,18 @@ import interactionPlugin from '@fullcalendar/interaction';
 const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const [isTextOpen, setIsTextOpen] = useState(false);
-  const [value, setValue] = React.useState('');
-  const handleInputChange = e => {
+  const [name, setName] = React.useState('');
+  const handleInputNameChange = e => {
     const inputValue = e.target.value;
-    setValue(inputValue);
+    setName(inputValue);
   };
+
+  const [email, setEmal] = React.useState('');
+  const handleInputEmailChange = e => {
+    const inputValue = e.target.value;
+    setEmal(inputValue);
+  };
+  // console.log(recipients, 'rex');
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalOverlay />
@@ -46,17 +53,17 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
             }}
           />
           <Flex flexDirection="column" marginLeft="45px" width="250px">
-            {recipients?.map(recipient => (
+            {recipients.map(recipient => (
               <>
-                <Text fontSize="md" fontWeight="bold" key={recipient?.id}>
-                  {recipient?.name}
+                <Text fontSize="md" fontWeight="bold" key={recipient?.user?.id}>
+                  {recipient?.user?.username}
                 </Text>
                 <Text
                   fontSize="xs"
-                  key={recipient?.id + recipient?.email}
+                  key={recipient?.user?.id + recipient?.user?.email}
                   mb="3px"
                 >
-                  {recipient?.email}
+                  {recipient?.user?.email}
                 </Text>
               </>
             ))}
@@ -66,21 +73,23 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
                   placeholder="Assignee name"
                   fontSize="md"
                   fontWeight="bold"
-                  minH="34px !important"
-                  size="xs"
-                  value={value}
-                  onChange={handleInputChange}
+                  minH="28px !important"
+                  height="28px !important"
+                  p="0px"
+                  mt="3px"
+                  value={name}
+                  onChange={handleInputNameChange}
                   // mb="3px"
                   variant="unstyled"
                 />
                 <Textarea
                   placeholder="Assignee email"
                   fontSize="xs"
-                  // fontWeight="bold"
-                  minH="34px !important"
-                  size="xs"
-                  value={value}
-                  onChange={handleInputChange}
+                  p="0px"
+                  height="24px !important"
+                  minH="24px !important"
+                  value={email}
+                  onChange={handleInputEmailChange}
                   mb="3px"
                   variant="unstyled"
                 />

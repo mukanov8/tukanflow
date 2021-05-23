@@ -187,7 +187,7 @@ const Editor = ({ stage }) => {
       <CalendarModal
         isOpen={isOpen}
         onClose={onClose}
-        recipients={recipients}
+        recipients={stage?.approvals}
         size="3xl"
         isCentered
       />
