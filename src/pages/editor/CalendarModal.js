@@ -45,7 +45,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               hour12: false,
             }}
           />
-          <Flex flexDirection="column" marginLeft="45px" width="200px">
+          <Flex flexDirection="column" marginLeft="45px" width="250px">
             {recipients?.map(recipient => (
               <>
                 <Text fontSize="md" fontWeight="bold" key={recipient?.id}>
@@ -90,7 +90,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               variant="link"
               size="sm"
               w="120px"
-              mt="3px"
+              mt="6px"
               fontWeight="450"
               onClick={() => setIsTextOpen(isTextOpen => !isTextOpen)}
             >

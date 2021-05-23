@@ -1,4 +1,5 @@
 import { Box, Text, Heading, Button } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import React from 'react';
 import theme from '../../utils/theme';
@@ -20,8 +21,7 @@ const dummy = [
   },
 ];
 
-const Pipeline = ({ data }) => {
-  console.log(data);
+const Pipeline = ({ feature }) => {
   return (
     <Box
       w="90%"
@@ -31,26 +31,28 @@ const Pipeline = ({ data }) => {
       flexDirection="column"
       mt="28px"
     >
-      <Button
-        w="200px"
-        color="gray.500"
-        ml="16px"
-        variant="outline"
-        bg="transparent"
-        borderColor="transparent"
-        _hover={{ bg: 'transparent' }}
-        _focus={{
-          boxShadow: '0',
-        }}
-        _active={{
-          color: '#dddfe2',
-        }}
-      >
-        <ArrowBackIcon as="u" fontSize="sm" />
-        <Text as="u" fontSize="sm" ml="5px">
-          Go to Dashboard
-        </Text>
-      </Button>
+      <Link to="/dashboard">
+        <Button
+          w="200px"
+          color="gray.500"
+          ml="16px"
+          variant="outline"
+          bg="transparent"
+          borderColor="transparent"
+          _hover={{ bg: 'transparent' }}
+          _focus={{
+            boxShadow: '0',
+          }}
+          _active={{
+            color: '#dddfe2',
+          }}
+        >
+          <ArrowBackIcon as="u" fontSize="sm" />
+          <Text as="u" fontSize="sm" ml="5px">
+            Go to Dashboard
+          </Text>
+        </Button>
+      </Link>
       <Box h="40%" display="flex" flexDirection="column" pt="36px" pb="66px">
         <Heading
           as="h2"
@@ -87,7 +89,7 @@ const Pipeline = ({ data }) => {
           justifyContent="center"
           alignItems="center"
         >
-          {dummy.map((item, i) => (
+          {feature?.stages.map((item, i) => (
             <>
               <Item
                 index={i + 1}
@@ -95,11 +97,11 @@ const Pipeline = ({ data }) => {
                 itemData={item}
                 mx="36px"
               />
-              {item.status !== 0 && (
+              {item.progress !== 0 && i !== feature?.stages?.length - 1 && (
                 <Box mb="32px">
                   <ArrowRight
                     color={
-                      item.status === 100
+                      item.progress === 100
                         ? theme.colors.black
                         : theme.colors.gray[400]
                     }

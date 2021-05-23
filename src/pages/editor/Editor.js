@@ -15,7 +15,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import CKEditor from './CKEditorWrapper';
 import CalendarModal from './CalendarModal';
 
-const Editor = ({ data }) => {
+const Editor = ({ stage }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const tasks = [
@@ -60,15 +60,20 @@ const Editor = ({ data }) => {
     () => (
       <FloatingBox title="Agenda" styleProps={{ mr: '40px' }}>
         <Stack spacing="-5px" p="14px 10px">
-          {tasks.map(() => (
+          {stage?.goals.map(goal => (
             <Flex w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
+              <Checkbox
+                iconSize="sm"
+                key={tasks.id}
+                colorScheme="green"
+                defaultChecked={goal?.status === 'done'}
+              />
               <Flex flexDirection="column" ml="5px">
                 <Text fontSize="14px" width="200px">
-                  Hello Worldhjjvvjhgbkjlml,nbjhvhgchgbjkhnnbhgcfx
+                  {goal?.text}
                 </Text>
                 <Text fontSize="11px" color="gray.400">
-                  Author: Jane Doe
+                  {goal?.author?.email}
                 </Text>
               </Flex>
             </Flex>
@@ -83,7 +88,7 @@ const Editor = ({ data }) => {
     () => (
       <FloatingBox title="Summary of the previous document">
         <Text p="14px 19px" fontSize="12px">
-          Hello World!
+          {stage?.summary}
         </Text>
       </FloatingBox>
     ),
@@ -94,11 +99,16 @@ const Editor = ({ data }) => {
     () => (
       <FloatingBox title="Approvals">
         <Stack spacing="-5px" p="14px 10px">
-          {tasks.map(() => (
+          {stage?.approvals.map(approval => (
             <Flex w="100%" key={tasks.id} minh="18px" py="8px">
-              <Checkbox iconSize="sm" key={tasks.id} colorScheme="green" />
+              <Checkbox
+                iconSize="sm"
+                key={tasks.id}
+                colorScheme="green"
+                defaultChecked={approval?.status === 'accepted'}
+              />
               <Text fontSize="sm" width="200px" ml="10px">
-                John Doe
+                {approval?.user?.email}
               </Text>
             </Flex>
           ))}
@@ -150,11 +160,11 @@ const Editor = ({ data }) => {
       >
         <ArrowBackIcon as="u" fontSize="sm" />
         <Text as="u" fontSize="sm" ml="5px">
-          Develop streak feature in video player
+          {stage?.name}
         </Text>
       </Button>
       <Heading as="h2" size="lg" textAlign="center" mb="24px">
-        Business Requirements
+        {stage?.title}
       </Heading>
       <Center flexDirection="column">
         <Flex>
@@ -162,7 +172,7 @@ const Editor = ({ data }) => {
             <Agenda />
             <Summary />
           </Box>
-          <CKEditor {...{ data }} config={{ height: '100%' }} />
+          <CKEditor {...{ text: stage?.text }} config={{ height: '100%' }} />
           <Box ml="40px">
             <Flex justifyContent="space-around" mt="20px">
               <Button colorScheme="yellow" onClick={onOpen}>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.19",
     "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/layout": "^1.4.5",
     "@chakra-ui/react": "^1.6.2",
@@ -24,6 +25,7 @@
     "@testing-library/user-event": "^12.1.10",
     "framer-motion": "^4.1.17",
     "fullcalendar": "^5.5.0",
+    "graphql": "^15.5.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
