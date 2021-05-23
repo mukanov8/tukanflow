@@ -22,6 +22,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const [isTextOpen, setIsTextOpen] = useState(false);
   const [name, setName] = React.useState('');
+  const [meetingTimes, setMeetingTimes] = useState([]);
   const handleInputNameChange = e => {
     const inputValue = e.target.value;
     setName(inputValue);
@@ -46,38 +47,24 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
       const emailsList = [];
       recipients.map(recipient => emailsList.push(recipient?.user?.email));
       setEmails([...emails, emailsList]);
-      // console.log(emails);
-      // axios.post('/findmeeting', emails);
+
+      const prodUrl =
+        'https://tukanflow-nodejs-backend.azurewebsites.net/findmeeting';
+      // const prodUrl = 'http://localhost:6001/findmeeting';
+      axios({
+        method: 'POST',
+        url: prodUrl,
+        data: emailsList,
+      })
+        .then(response => {
+          setMeetingTimes(response.data);
+        })
+        .catch(error => {
+          console.log({ error });
+        });
     }
   }, [isOpen]);
 
-  //   [
-  //     "anuar@tukangambit.onmicrosoft.com",
-  //     "kunduzb17@tukangambit.onmicrosoft.com"
-  // ]
-  // const onClear = useCallback(() => {
-  //   setEmails([]);
-  //   console.log(emails, 'clear');
-  // }, []);
-  // if (data && data.features) {
-  //   setFeatures(data.features);
-  // }
-
-  // axios({
-  //   method: 'post',
-  //   url: '/findmeeting',
-  //   data: emails,
-  // });
-  // axios.post('/findmeeting', emails);
-  // axios.get('https://api.github.com/users/mapbox')
-  // .then((response) => {
-  //   console.log(response.data);
-  //   console.log(response.status);
-  //   console.log(response.statusText);
-  //   console.log(response.headers);
-  //   console.log(response.config);
-  // });
-  // console.log(recipients, 'rex');
   return (
     <Modal
       isOpen={isOpen}
