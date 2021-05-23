@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { Spinner } from '@chakra-ui/react';
+import { Spinner, Center } from '@chakra-ui/react';
 
 import Editor from './Editor';
 
@@ -51,7 +51,11 @@ const EditorContainer = props => {
   }, [data, error, loading]);
 
   if (!stage) {
-    return <Spinner size="xl" />;
+    return (
+      <Center h="100vh" w="100vw">
+        <Spinner size="xl" />
+      </Center>
+    );
   }
   console.log({ stage });
   return <Editor stage={stage} />;

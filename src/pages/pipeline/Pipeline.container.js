@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Spinner } from '@chakra-ui/react';
+import { Spinner, Center } from '@chakra-ui/react';
 
 import Pipeline from './Pipeline';
 
@@ -52,7 +52,11 @@ const PipelineContainer = props => {
   }, [data, error, loading]);
 
   if (!feature) {
-    return <Spinner size="xl" />;
+    return (
+      <Center h="100vh" w="100vw">
+        <Spinner size="xl" />
+      </Center>
+    );
   }
 
   return <Pipeline feature={feature} />;

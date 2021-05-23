@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Spinner } from '@chakra-ui/react';
+import { Spinner, Center } from '@chakra-ui/react';
 import Dashboard from './Dashboard';
 
 const GET_FEATURES = gql`
@@ -23,7 +23,11 @@ const DashboardContainer = () => {
   }, [data, error, loading]);
 
   if (!features) {
-    return <Spinner size="xl" />;
+    return (
+      <Center h="100vh" w="100vw">
+        <Spinner size="xl" />
+      </Center>
+    );
   }
 
   return <Dashboard features={features} />;
