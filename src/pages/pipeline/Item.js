@@ -1,6 +1,7 @@
 import { Box, Center, Text } from '@chakra-ui/layout';
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import checkmarkDoneSharp from '@iconify-icons/ion/checkmark-done-sharp';
 import theme from '../../utils/theme';
@@ -50,40 +51,42 @@ const Item = ({ index = 1, itemData, ...props }) => {
       // _hover={{ transform: 'scale(1.05)' }}
       {...props}
     >
-      <Text fontSize="sm" w="max-content" mb="14px">
-        {index}.
-      </Text>
-      <Center
-        w={size}
-        h={size}
-        transition="width height 2s;"
-        bg={isPending ? theme.colors.gray[200] : theme.colors.gray[600]}
-        borderRadius="50%"
-        _hover={{ transform: 'scale(1.05)' }}
-      >
-        {isCompleted && (
-          <Icon
-            icon={checkmarkDoneSharp}
-            width="48px"
-            color={theme.colors.green[600]}
-          />
-        )}
-        {isActive && (
-          <CircularProgress
-            value={itemData.progress}
-            size="54px"
-            color={theme.colors.green[600]}
-          >
-            <CircularProgressLabel color="white">
-              {itemData.progress}%
-            </CircularProgressLabel>
-          </CircularProgress>
-        )}
-      </Center>
-      <Text fontSize="lg" w={size} mt="14px">
-        {itemData.title}
-      </Text>
-      {statusMsg}
+      <Link to={`/editor/${itemData.id}`}>
+        <Text fontSize="sm" w="max-content" mb="14px">
+          {index}.
+        </Text>
+        <Center
+          w={size}
+          h={size}
+          transition="width height 2s;"
+          bg={isPending ? theme.colors.gray[200] : theme.colors.gray[600]}
+          borderRadius="50%"
+          _hover={{ transform: 'scale(1.05)' }}
+        >
+          {isCompleted && (
+            <Icon
+              icon={checkmarkDoneSharp}
+              width="48px"
+              color={theme.colors.green[600]}
+            />
+          )}
+          {isActive && (
+            <CircularProgress
+              value={itemData.progress}
+              size="54px"
+              color={theme.colors.green[600]}
+            >
+              <CircularProgressLabel color="white">
+                {itemData.progress}%
+              </CircularProgressLabel>
+            </CircularProgress>
+          )}
+        </Center>
+        <Text fontSize="lg" w={size} mt="14px">
+          {itemData.title}
+        </Text>
+        {statusMsg}
+      </Link>
     </Box>
   );
 };
