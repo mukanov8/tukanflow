@@ -18,6 +18,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import axios from 'axios';
 import theme from '../../utils/theme';
 
+const PROD_URL = 'https://tukanflow-nodejs-backend.azurewebsites.net';
+// const PROD_URL = 'http://localhost:6001';
+
 const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
   const [isTextOpen, setIsTextOpen] = useState(false);
@@ -48,15 +51,13 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
       recipients.map(recipient => emailsList.push(recipient?.user?.email));
       setEmails([...emails, emailsList]);
 
-      const prodUrl =
-        'https://tukanflow-nodejs-backend.azurewebsites.net/findmeeting';
-      // const prodUrl = 'http://localhost:6001/findmeeting';
       axios({
         method: 'POST',
-        url: prodUrl,
+        url: `${PROD_URL}/findmeeting`,
         data: emailsList,
       })
         .then(response => {
+          console.log(response);
           setMeetingTimes(response.data);
         })
         .catch(error => {
@@ -64,6 +65,32 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
         });
     }
   }, [isOpen]);
+
+  const sendInvitation = ({ subject, attendees, start, end }) => {
+    axios({
+      method: 'POST',
+      url: `${PROD_URL}/schedulemeeting`,
+      data: {
+        subject,
+        attendees,
+        start,
+        end,
+      },
+    }).then(response => {
+      axios({
+        method: 'POST',
+        url: `${PROD_URL}/invite`,
+        data: {
+          subject,
+          attendees,
+          start,
+          end,
+        },
+      }).then(response => {
+        console.log('response', response);
+      });
+    });
+  };
 
   return (
     <Modal
