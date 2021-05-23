@@ -9,7 +9,7 @@ import theme from '../../utils/theme';
 const SMALL_ITEM_SIZE = 117;
 const BIG_ITEM_SIZE = 150;
 
-const Item = ({ index = 1, itemData, ...props }) => {
+const Item = ({ index = 1, itemData, parentId, ...props }) => {
   const isActive = itemData.progress < 100 && itemData.progress > 0;
   const isPending = itemData.progress === 0;
   const isCompleted = itemData.progress === 100;
@@ -51,7 +51,7 @@ const Item = ({ index = 1, itemData, ...props }) => {
       // _hover={{ transform: 'scale(1.05)' }}
       {...props}
     >
-      <Link to={`/editor/${itemData.id}`}>
+      <Link to={`/editor/${parentId}/${itemData.id}`}>
         <Text fontSize="sm" w="max-content" mb="14px">
           {index}.
         </Text>

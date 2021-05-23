@@ -37,6 +37,8 @@ const GET_STAGE = gql`
 
 const EditorContainer = props => {
   const stageId = props?.match?.params?.id;
+  const parentId = props?.match?.params?.parentId;
+
   const [stage, setStage] = useState(null);
   const { data, error, loading } = useQuery(GET_STAGE, {
     variables: {
@@ -58,7 +60,7 @@ const EditorContainer = props => {
     );
   }
   console.log({ stage });
-  return <Editor stage={stage} />;
+  return <Editor stage={stage} parentId={parentId} />;
 };
 
 export default EditorContainer;

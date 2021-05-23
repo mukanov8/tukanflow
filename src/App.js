@@ -48,7 +48,11 @@ function App() {
           <Route exact path="/" component={PublicPage} />
           <Route exact path="/dashboard" component={DashboardContainer} />
           <Route exact path="/pipeline/:id" component={PipelineContainer} />
-          <Route exact path="/editor/:id" component={EditorContainer} />
+          <Route
+            exact
+            path="/editor/:parentId/:id"
+            component={EditorContainer}
+          />
         </BrowserRouter>
       </ChakraProvider>
     </ApolloProvider>
