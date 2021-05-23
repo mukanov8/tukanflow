@@ -4,13 +4,13 @@ import { Box, Text, Center, Flex, Circle, Grid } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 
 const Dashboard = ({ features }) => {
-  const dummy = [
-    { id: '123' },
-    { id: '345' },
-    { id: '567' },
-    { id: '789' },
-    { id: '987' },
-  ];
+  // const dummy = [
+  //   { id: '123' },
+  //   { id: '345' },
+  //   { id: '567' },
+  //   { id: '789' },
+  //   { id: '987' },
+  // ];
   const wrapItems = () =>
     features.map(item => (
       <Flex

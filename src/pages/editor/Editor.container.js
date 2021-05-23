@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import { Spinner, Center } from '@chakra-ui/react';
 
 import Editor from './Editor';
@@ -59,7 +59,7 @@ const EditorContainer = props => {
       </Center>
     );
   }
-  console.log({ stage });
+  // console.log({ stage });
   return <Editor stage={stage} parentId={parentId} />;
 };
 

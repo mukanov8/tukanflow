@@ -5,7 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Box } from '@chakra-ui/react';
 
 const CKEditorWrapper = ({ text }) => {
-  console.log('ck editor', text);
+  // console.log('ck editor', text);
   return (
     <Box width="844px">
       <CKEditor

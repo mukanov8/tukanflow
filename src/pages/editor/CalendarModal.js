@@ -10,19 +10,77 @@ import {
   Flex,
   Text,
   Input,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Box,
 } from '@chakra-ui/react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
 import axios from 'axios';
 import theme from '../../utils/theme';
 
+// const dates = [
+//   {
+//     start: {
+//       dateTime: '2021-05-30T23:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//     end: {
+//       dateTime: '2021-05-31T00:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//   },
+//   {
+//     start: {
+//       dateTime: '2021-05-31T00:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//     end: {
+//       dateTime: '2021-05-31T01:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//   },
+//   {
+//     start: {
+//       dateTime: '2021-05-31T01:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//     end: {
+//       dateTime: '2021-05-31T02:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//   },
+//   {
+//     start: {
+//       dateTime: '2021-05-31T02:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//     end: {
+//       dateTime: '2021-05-31T03:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//   },
+//   {
+//     start: {
+//       dateTime: '2021-05-31T03:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//     end: {
+//       dateTime: '2021-05-31T04:00:00.0000000',
+//       timeZone: 'UTC',
+//     },
+//   },
+// ];
+
 const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
-  // const { isOpen, onOpen, onClose } = useDisclosure();
   const [isTextOpen, setIsTextOpen] = useState(false);
   const [name, setName] = React.useState('');
+
   const [meetingTimes, setMeetingTimes] = useState([]);
+  const [selectedTime, setSelectedTime] = useState({});
+
   const handleInputNameChange = e => {
     const inputValue = e.target.value;
     setName(inputValue);
@@ -38,7 +96,8 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
   const [emails, setEmails] = React.useState([]);
 
   const onClick = useCallback(() => {
-    recipients.map(recipient => setEmails([...emails, recipient?.user?.email]));
+    // recipients.map(recipient => setEmails([...emails, recipient?.user?.email]));
+    console.log(selectedTime, 'hey');
     // console.log(emails, 'set');
   }, []);
 
@@ -58,6 +117,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
       })
         .then(response => {
           setMeetingTimes(response.data);
+          // console.log(meetingTimes, 'times');
         })
         .catch(error => {
           console.log({ error });
@@ -78,19 +138,34 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
         <ModalHeader>{meetingName}</ModalHeader>
         <ModalCloseButton autoFocus={false} />
         <ModalBody display="flex" flexDirection="row" p="28px">
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            height="500px"
-            initialView="timeGridWeek"
-            views={['dayGridMonth', '', 'timeGridDay']}
-            viewClassNames="dayGridMonth"
-            slotLabelFormat={{ hour: 'numeric', minute: '2-digit' }}
-            eventTimeFormat={{
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false,
-            }}
-          />
+          <Box h="500px" w="400px">
+            <Table variant="simple" overflow="scroll" size="sm">
+              <Thead>
+                <Tr>
+                  <Th>Start Date</Th>
+                  <Th>End Date</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {meetingTimes.map((date, i) => (
+                  <Tr
+                    key={i.toString()}
+                    cursor="pointer"
+                    onClick={() => {
+                      console.log(date, 'date');
+                      setSelectedTime(selectedTime => date);
+                    }}
+                    _hover={{ bg: 'gray.100' }}
+                    borderRadius="20px"
+                    size="sm"
+                  >
+                    <Td p="0px"> {date?.start?.dateTime} </Td>
+                    <Td p="0px"> {date?.end?.dateTime} </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>
           <Flex flexDirection="column" marginLeft="45px" width="250px">
             {recipients.map(recipient => (
               <>
@@ -142,6 +217,7 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               w="120px"
               mt="6px"
               fontWeight="450"
+              as="u"
               onClick={() => setIsTextOpen(isTextOpen => !isTextOpen)}
             >
               add new assignee
@@ -167,19 +243,3 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
 };
 
 export default CalendarModal;
-
-// {
-//   "subject": "My event",
-//   "start": {
-//       "dateTime": "2021-05-23T02:51:47.348Z",
-//       "timeZone": "UTC"
-//   },
-//   "end": {
-//       "dateTime": "2021-05-30T02:51:47.348Z",
-//       "timeZone": "UTC"
-//   },
-//   "attendees": [
-//       "anuar@tukangambit.onmicrosoft.com",
-//       "kunduzb17@tukangambit.onmicrosoft.com"
-//   ]
-// }
