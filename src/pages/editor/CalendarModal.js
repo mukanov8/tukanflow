@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Button,
   Modal,
@@ -9,12 +9,14 @@ import {
   ModalOverlay,
   Flex,
   Text,
-  Textarea,
+  Input,
 } from '@chakra-ui/react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import axios from 'axios';
+import theme from '../../utils/theme';
 
 const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,24 +26,74 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
     const inputValue = e.target.value;
     setName(inputValue);
   };
+  const [meetingName, setMeetingName] = useState('New meeting');
 
-  const [email, setEmal] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const handleInputEmailChange = e => {
     const inputValue = e.target.value;
-    setEmal(inputValue);
+    setEmail(inputValue);
   };
+
+  const [emails, setEmails] = React.useState([]);
+
+  const onClick = useCallback(() => {
+    recipients.map(recipient => setEmails([...emails, recipient?.user?.email]));
+    // console.log(emails, 'set');
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      const emailsList = [];
+      recipients.map(recipient => emailsList.push(recipient?.user?.email));
+      setEmails([...emails, emailsList]);
+      // console.log(emails);
+      // axios.post('/findmeeting', emails);
+    }
+  }, [isOpen]);
+
+  //   [
+  //     "anuar@tukangambit.onmicrosoft.com",
+  //     "kunduzb17@tukangambit.onmicrosoft.com"
+  // ]
+  // const onClear = useCallback(() => {
+  //   setEmails([]);
+  //   console.log(emails, 'clear');
+  // }, []);
+  // if (data && data.features) {
+  //   setFeatures(data.features);
+  // }
+
+  // axios({
+  //   method: 'post',
+  //   url: '/findmeeting',
+  //   data: emails,
+  // });
+  // axios.post('/findmeeting', emails);
+  // axios.get('https://api.github.com/users/mapbox')
+  // .then((response) => {
+  //   console.log(response.data);
+  //   console.log(response.status);
+  //   console.log(response.statusText);
+  //   console.log(response.headers);
+  //   console.log(response.config);
+  // });
   // console.log(recipients, 'rex');
   return (
-    <Modal isOpen={isOpen} onClose={onClose} {...props}>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        onClose();
+      }}
+      {...props}
+    >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>New meeting</ModalHeader>
+        <ModalHeader>{meetingName}</ModalHeader>
         <ModalCloseButton autoFocus={false} />
         <ModalBody display="flex" flexDirection="row" p="28px">
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             height="500px"
-            width="400px !important"
             initialView="timeGridWeek"
             views={['dayGridMonth', '', 'timeGridDay']}
             viewClassNames="dayGridMonth"
@@ -69,29 +121,31 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
             ))}
             {isTextOpen && (
               <>
-                <Textarea
+                <Input
                   placeholder="Assignee name"
                   fontSize="md"
                   fontWeight="bold"
-                  minH="28px !important"
-                  height="28px !important"
+                  color={theme.colors.gray[600]}
+                  minH="24px !important"
+                  height="24px !important"
                   p="0px"
                   mt="3px"
                   value={name}
                   onChange={handleInputNameChange}
-                  // mb="3px"
                   variant="unstyled"
                 />
-                <Textarea
+                <Input
                   placeholder="Assignee email"
                   fontSize="xs"
+                  type="email"
+                  color={theme.colors.gray[600]}
                   p="0px"
-                  height="24px !important"
-                  minH="24px !important"
+                  height="18px !important"
+                  minH="18px !important"
                   value={email}
                   onChange={handleInputEmailChange}
                   mb="3px"
-                  variant="unstyled"
+                  variant="flushed"
                 />
               </>
             )}
@@ -111,7 +165,10 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
               borderRadius="8px"
               colorScheme="green"
               mt="auto"
-              onClick={() => console.log('sent invitation emails')}
+              onClick={() => {
+                onClick();
+                console.log('sent invitation emails');
+              }}
             >
               Send invitation emails
             </Button>
@@ -123,3 +180,19 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
 };
 
 export default CalendarModal;
+
+// {
+//   "subject": "My event",
+//   "start": {
+//       "dateTime": "2021-05-23T02:51:47.348Z",
+//       "timeZone": "UTC"
+//   },
+//   "end": {
+//       "dateTime": "2021-05-30T02:51:47.348Z",
+//       "timeZone": "UTC"
+//   },
+//   "attendees": [
+//       "anuar@tukangambit.onmicrosoft.com",
+//       "kunduzb17@tukangambit.onmicrosoft.com"
+//   ]
+// }
