@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Modal,
@@ -9,6 +9,7 @@ import {
   ModalOverlay,
   Flex,
   Text,
+  Textarea,
 } from '@chakra-ui/react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -16,6 +17,13 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
 const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isTextOpen, setIsTextOpen] = useState(false);
+  const [value, setValue] = React.useState('');
+  const handleInputChange = e => {
+    const inputValue = e.target.value;
+    setValue(inputValue);
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose} {...props}>
       <ModalOverlay />
@@ -39,16 +47,52 @@ const CalendarModal = ({ isOpen, onClose, recipients, ...props }) => {
           />
           <Flex flexDirection="column" marginLeft="45px" width="200px">
             {recipients?.map(recipient => (
-              <Text size="lg" fontWeight="bold" key={recipient?.id} mb="3px">
-                {recipient?.name}
-              </Text>
+              <>
+                <Text fontSize="md" fontWeight="bold" key={recipient?.id}>
+                  {recipient?.name}
+                </Text>
+                <Text
+                  fontSize="xs"
+                  key={recipient?.id + recipient?.email}
+                  mb="3px"
+                >
+                  {recipient?.email}
+                </Text>
+              </>
             ))}
+            {isTextOpen && (
+              <>
+                <Textarea
+                  placeholder="Assignee name"
+                  fontSize="md"
+                  fontWeight="bold"
+                  minH="34px !important"
+                  size="xs"
+                  value={value}
+                  onChange={handleInputChange}
+                  // mb="3px"
+                  variant="unstyled"
+                />
+                <Textarea
+                  placeholder="Assignee email"
+                  fontSize="xs"
+                  // fontWeight="bold"
+                  minH="34px !important"
+                  size="xs"
+                  value={value}
+                  onChange={handleInputChange}
+                  mb="3px"
+                  variant="unstyled"
+                />
+              </>
+            )}
             <Button
               variant="link"
               size="sm"
               w="120px"
               mt="3px"
               fontWeight="450"
+              onClick={() => setIsTextOpen(isTextOpen => !isTextOpen)}
             >
               add new assignee
             </Button>

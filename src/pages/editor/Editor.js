@@ -3,7 +3,6 @@ import {
   Box,
   Text,
   Center,
-  GridItem,
   Button,
   Divider,
   Checkbox,
@@ -111,19 +110,23 @@ const Editor = ({ data }) => {
 
   const recipients = [
     {
-      name: 'Alice Kim',
+      name: 'Anuar Talipov',
+      email: 'anuar@tukangambit.onmicrosoft.com',
       id: '1',
     },
     {
-      name: 'Bobby Bob',
+      name: 'Kunduz Baryktabasova',
+      email: 'kunduzb17@tukangambit.onmicrosoft.com',
       id: '2',
     },
     {
-      name: 'Claire Zuan',
+      name: 'Ayan Mukanov',
+      email: 'ayan@tukangambit.onmicrosoft.com',
       id: '3',
     },
     {
-      name: 'Dominic Park',
+      name: 'Bauyrzhan Tokenov',
+      email: 'bauka@tukangambit.onmicrosoft.com',
       id: '4',
     },
   ];
